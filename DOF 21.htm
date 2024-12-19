@@ -1,0 +1,257 @@
+<HTML>
+<HEAD>
+<TITLE>Berechnung der Sch&auml;rfentiefe</TITLE>
+<SCRIPT  LANGUAGE="JavaScript"><!--
+     function berechne(form)
+       {
+// Variablendeklaration:   A1=Brennweite B1=Blende C1= Abstand zum Objekt D1=Kamera/Z-Kreis
+         var         A1 = parseFloat(form.A1.value), B1 = parseFloat(form.Blende.value), C1 = parseFloat(form.C1.value),
+                     D1 = parseFloat(form.Kamera.value);
+// Berechnungen
+         Wert1 = ((A1 * A1) / (B1 * D1)) + A1;                           // Hyperfokale Distanz in mm
+                 HD = (Math.round((Wert1 * 10000) / 10000 ) / 1000);     // HD in m gerundet
+ 
+         Wert2 = (C1*1000)*Wert1/(Wert1+((C1*1000)-A1));                 // Nahpunkt in mm
+                 NP = (Math.round((Wert2 * 10000) / 10000 ) / 1000);     // Nahpunkt in m gerundet
+ 
+         Wert3 = (C1*1000)*Wert1/(Wert1-((C1*1000)-A1));   // Wert 3     // Fernpunkt in mm
+                 FP = (Math.round((Wert3 * 10000) / 10000 ) / 1000);     // Fernpunkt in m gerundet
+ 
+         Wert4 = Wert3 - Wert2;   // Wert 4                              // Schärfentiefe in mm
+                 ST = (Math.round((Wert4 * 10000) / 10000 ) / 1000);     // Schärfentiefe in m gerundet
+ 
+         BD = D1 * 1500;                                                 // Bilddiagonale aus Z-Kreis berechnen
+         bw = 2 * Math.atan(BD / (2 * A1)) * 180 /3.14159;               // Bildwinkel aus der Bilddiagonale und Brennweite
+         Bildwinkel = (Math.round((bw * 1000) / 1000 ) / 1);             // runden
+ 
+        form.bl.value = B1;                                              // Den eingegebenen Blendenwert in die Grafik schreiben
+        form.zk.value = D1;                                              // Den Z-Kreis in die Grafik schreiben
+        form.ow.value = C1;                                              // Die eingegebene Objektweite in die Grafik schreiben
+        form.bildwinkel.value = Bildwinkel;                              // Den berechneten Bildwinkel in die Grafik schreiben
+ 
+        if (Wert1 < C1*1000-A1)         // HD <= Objektweite - Brennweite dann ist Fernpunkt und Schärfentiefe Unendlich
+           {
+             form.x.value = NP;                 //Nahpunkt in die Grafik schreiben
+             form.y.value = "Unendlich";        //Fernpunkt ist unendlich in die Grafik schreiben
+             form.z.value = "Unendlich";        //Schärfentiefe ist unendlich in die Grafik schreiben
+             form.loesungen.value =  HD;        //Hyperfokals Distanz in die Grafik schreiben
+           }
+         else                           // HD > Objektweite - Brennweite berechnete Werte in die Grafik schreiben
+           {
+             form.x.value = NP;                 //Nahpunkt in die Grafik schreiben
+             form.y.value = FP;                 //Fernpunkt in die Grafik schreiben
+             form.z.value = ST;                 //Schärfentiefe in die Grafik schreiben
+             form.loesungen.value =  HD;        //Hyperfokals Distanz in die Grafik schreiben
+           }
+        }
+  //  --></SCRIPT>
+ <!-- Textstyle für die Ausgabefelder in der Gafik -->
+<style type="text/css"> 
+ 
+<!--
+.textStyle
+{
+    border:none;
+    font-weight:bold;
+    text-align:left;
+    color: black;
+    font-size:12;
+}
+ 
+-->
+</style>
+ 
+<script type="text/javascript" src="jquery-1.2.2.pack"></script>
+ 
+<style type="text/css"> 
+ 
+.ajaxtooltip{
+position: absolute; /*leave this alone*/
+display: none; /*leave this alone*/
+width: 400px;
+left: 0; /*leave this alone*/
+top: 0; /*leave this alone*/
+background: lightgrey;
+border: 3px solid gray;
+border-width: 1px 2px 2px 1px;
+padding: 5px;
+font-size:12;
+}
+ 
+</style>
+ 
+<script type="text/javascript" src="ajaxtooltip.js"> 
+ 
+/***********************************************
+* Ajax Tooltip script- by JavaScript Kit (www.javascriptkit.com)
+* This notice must stay intact for usage
+* Visit JavaScript Kit at http://www.javascriptkit.com/ for this script and 100s more
+***********************************************/
+ 
+</script>
+</HEAD>
+ 
+<BODY  background="hg.png" style="background-repeat:no-repeat">     <!-- Hintergrundgrafik einmal einfügen -->
+ 
+ 
+<h1>Sch&auml;rfentieferechner</h1>
+(F&uuml;r Kommas Dezimalpunkt eingeben) <a href="dofhilfe.html" onclick="window.open(this.href, 'Hilfe'); return false">Hilfe gibts hier</a>
+<br>
+ 
+<FORM ACTION="" METHOD=POST >   <!--  Eingabeformular ausgeben und nach Veränderung eines Wertes neu berechnen -->
+<div style="position:absolute; top:115px; left:5px">
+<a title="Die Brennweite bitte in mm und ohne den
+Cropfaktor des Sensors angeben. Dieser
+ist mit der Kamera bereits verrechnet.">Brennweite:
+</div>
+<div style="position:absolute; top:115px; left:100px">
+<INPUT TYPE=text NAME=A1 VALUE="28" SIZE=3 onchange="berechne(this.form);">
+</div>
+ 
+<div style="position:absolute; top:115px; left:180px">
+Milimeter
+</div>  </a>                       <!--  Ajaxtooltip endet hier -->
+ 
+<div style="position:absolute; top:145px; left:5px">
+<a  title="Die Blende beeinflusst massgeblich die Sch&auml;rfentiefe.  ">Blende:          <!--  Ajaxtooltip einfügen  -->
+</div>
+<div style="position:absolute; top:145px; left:100px">
+<select name="Blende" onchange="berechne(this.form);" >
+<option value="1 ">1</option>
+<option value="1.2 ">1.2</option>
+<option value="1.4 ">1.4</option>
+<option value="1.6 ">1.6</option>
+<option value="1.8 ">1.8</option>
+<option value="2">2</option>
+<option value="2.2 ">2.2</option>
+<option value="2.5 ">2.5</option>
+<option value="2.8">2.8</option>
+<option value="3.2 ">3.2</option>
+<option value="3.5 ">3.5</option>
+<option value="4">4</option>
+<option value="4.5 ">4,5</option>
+<option value="5 ">5</option>
+<option value="5.6">5.6</option>
+<option value="6.3 ">6.3</option>
+<option value="7.1 ">7.1</option>
+<option SELECTED value="8">8</option>
+<option value="9 ">9</option>
+<option value="10 ">10</option>
+<option value="11">11</option>
+<option value="13 ">13</option>
+<option value="14 ">14</option>
+<option value="16">16</option>
+<option value="18 ">18</option>
+<option value="20 ">20</option>
+<option value="22">22</option>
+<option value="25 ">25</option>
+<option value="28 ">28</option>
+<option value="32">32</option>
+<option value="45 ">45</option>
+<option value="64 ">64</option>
+<option value="90 ">90</option>
+<option value="128 ">128</option>
+</select>
+</div>   </a>
+ 
+<div style="position:absolute; top:175px; left:5px">
+<a title="Die Objektweite ist der Abtand vom Sensor der Kamera bis zu dem Punk auf den Scharfgestellt wird.">Objektweite:</a>     <!--  Ajaxtooltip einfügen -->
+</div>
+<div style="position:absolute; top:175px; left:100px">
+<INPUT TYPE=text NAME=C1 VALUE="2.5" SIZE=3 onchange="berechne(this.form);">
+</div>
+ 
+<div style="position:absolute; top:175px; left:180px">
+Meter
+</div>
+ 
+<div style="position:absolute; top:205px; left:5px">
+<a  title="In der Liste der Kameras sind die wichtigstan Sensorgr&ouml;ssen bereits angegeben und intern verrechnet. ">Kamera:</a>    <!--  Ajaxtooltip einfügen -->
+</div>
+<div style="position:absolute; top:205px; left:100px">
+<select name="Kamera" onchange="berechne(this.form);">
+<option SELECTED value="0.0178">Canon APS-C 22,2mm x 14,8mm</option>
+<option value="0.0224">Canon APS-H 27,9mm x 18,6mm</option>
+<option value="0.0189">Nikon (DX) 23,6mm x 15,8mm</option>
+<option value="0.0288">Vollformat Kleinbild 24mm x 36mm</option>
+<option value="0.04">Digitales Mittelformat 48x36 mm, 60mm Diagonale</option>
+<option value="0.0537">Mittelformat 57x57, 80,6 mm Diagonale</option>
+<option value="0.0566">Mittelformat 60x60 84,8 mm Diagonale</option>
+<option value="0.0144">Four Thirds Sensor 21,6 mm Diagonale</option>
+<option value="0.0107">1'' Digitalkamera Sensor 16mm Diagonale</option>
+<option value="0.0067">'1/1,6'' Digitalkamera Sensor 10,1 mm Diagonale</option>
+<option value="0.0067">'1/1,7'' Digitalkamera Sensor 10 mm Diagonale</option>
+<option value="0.0060">'1/1,8'' Digitalkamera Sensor 9,1 mm Diagonale</option>
+<option value="0.0051">'1/2'' Digitalkamera Sensor 8 mm Diagonale</option>
+<option value="0.0044">'1/2,3''Digitalkamera Sensor 6,6 mm Diagonale</option>
+<option value="0.0044">'1/2,5'' Digitalkamera Sensor 6,6 mm Diagonale</option>
+<option value="0.0044">'1/2,7'' Digitalkamera Sensor 6,3mm Diagonale</option>
+<option value="0.0040">'1/3'' Digitalkamera Sensor 5,5 mm Diagonale</option>
+<option value="0.0033">'1/3,6'' Digitalkamera Sensor 5 mm Diagonale</option>
+<option value="0.0038">'1/3,2'' Digitalkamera Sensor 5 mm Diagonale</option>
+<option value="0.0107">1'' Digitalkamera Sensor 16mm Diagonale</option>
+</select>
+</div>
+ 
+<div style="position:absolute; top:205px; left:500px">
+Tabelle mit  <a href="http://volkerbehrens.de/fotografie/nachschlagen/sensorgroesse.htm" onclick="window.open(this.href, 'Sensorgr&ouml;&szlig;en'); return false">Sensorgr&ouml;&szlig;en</a>
+</div>
+ 
+<!--Buton zum ausrechnen-->
+<div style="position:absolute; top:280px; left:20px">
+<INPUT TYPE=button NAME=rechnen VALUE="ausrechnen" onclick="berechne(form);">
+</div>
+<!--Ausgabefeld für Hyperfokale Entfernung in der Grafik-->
+<div style="position:absolute; top:280px; left:150px">
+<a
+title="Als hyperfokale Entfernung wird in der Fotografie der Objektabstand bezeichnet, bei dem, wenn man genau auf dieses Objekt fokussiert, im Unendlichen liegende Objekte auch noch scharf abgebildet werden. Der gesamte scharfe Bereich, die sogenannte Sch&auml;rfentiefe, reicht dann von der halben hyperfokalen Entfernung bis ins Unendliche"
+href="http://de.wikipedia.org/wiki/Hyperfokale_Entfernung"
+onclick="window.open(this.href, 'HE'); return false">Hyperfokale Entfernung </a>
+= <INPUT TYPE=text class="textStyle" NAME=loesungen VALUE="" SIZE=4 onfocus="this.blur();"> m
+</div>
+ 
+<!--Ausgabefeld für Bildwinkel in der Grafik-->
+<div style="position:absolute; top:115px; left:350px">
+<a href="http://de.wikipedia.org/wiki/Bildwinkel" onclick="window.open(this.href, 'Bildwinkel'); return false">Bildwinkel (Sensorabhängig)       </a>
+ = <INPUT TYPE=text class="textStyle" NAME=bildwinkel VALUE="" SIZE=2 onfocus="this.blur();"> Grad
+</div>
+<!--Ausgabefeld für den Fernpunkt in der Grafik-->
+<div style="position:absolute; top:350px; left:5px">
+<a  title="Der fernste Punkt vor der Kamera, der scharf abgebildet wird. ">Fernpunkt<br></a>    <!--  Ajaxtooltip einfügen -->
+<INPUT TYPE=text class="textStyle" NAME=y VALUE="" SIZE=7 onfocus="this.blur();"> m
+</div>
+<!--Ausgabefeld für den Nahpunkt in der Grafik-->
+<div style="position:absolute; top:350px; left:130px">
+<a  title="Der nächste Punkt vor der Kamera, der scharf abgebildet wird. ">Nahpunkt<br></a>    <!--  Ajaxtooltip einfügen -->
+<INPUT TYPE=text class="textStyle" NAME=x VALUE="" SIZE=8 onfocus="this.blur();"> m
+</div>
+<!--Ausgabefeld für die Blende in der Grafik-->
+<div style="position:absolute; top:320px; left:450px">
+Blende<br>
+<INPUT TYPE=text class="textStyle" NAME=bl VALUE="" SIZE=1 onfocus="this.blur();">
+</div>
+<!--Ausgabefeld für den Z-Kreis in der Grafik-->
+<div style="position:absolute; top:400px; left:700px">
+<a  title="Zerstreuungskreise entstehen in der Fotografie bei Unschärfe im Bild, also wenn die Projektion eines Punktes eines Motivs vor beziehungsweise hinter der Projektionsebene liegt oder wenn durch Beugung ein zu projizierender Lichtpunkt unscharf als Beugungsscheibchen abgebildet wird. ">Z-Kreis<br></a>    <!--  Ajaxtooltip einfügen -->
+<INPUT TYPE=text class="textStyle" NAME=zk VALUE="" SIZE=5 onfocus="this.blur();"> mm
+</div>
+<!--Ausgabefeld für die Objektentfernung in der Grafik-->
+<div style="position:absolute; top:451px; left:326px">
+<a title="Die Objektweite ist der Abtand vom Sensor der Kamera bis zu dem Punk auf den Scharfgestellt wird.">Objektweite :</a>     <!--  Ajaxtooltip einfügen -->
+<INPUT TYPE=text class="textStyle" NAME=ow VALUE="" SIZE=3 onfocus="this.blur();"> m
+</div>
+<!--Ausgabefeld für die Schärfentiefe in der Grafik-->
+<div style="position:absolute; top:480px; left:47px">
+<INPUT TYPE=text class="textStyle" NAME=z VALUE="" SIZE=13 onfocus="this.blur();"> m <br>
+<a  title="Die Schärfentiefe ist ein Maß für die Ausdehnung des scharfen Bereichs im Objektraum. Er beschreibt die Größe des Entfernungsbereichs, innerhalb dessen ein Objekt hinlänglich scharf abgebildet wird. ">Sch&auml;rfentiefe</a>    <!--  Ajaxtooltip einfügen -->
+</div>
+ 
+<div style="position:absolute; top:550px; left:5px">
+<a href="http://volkerbehrens.de/fblog" onclick="window.open(this.href, 'VolkerBehrens.de'); return false"><i>V. Behrens 2013 - Version 2.1</i>      </a>
+
+</div>
+ 
+</FORM>
+ 
+</BODY>
+</HTML>
