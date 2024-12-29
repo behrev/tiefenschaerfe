@@ -17,8 +17,8 @@
          Wert3 = (C1*1000)*Wert1/(Wert1-((C1*1000)-A1));   // Wert 3     // Fernpunkt in mm
                  FP = (Math.round((Wert3 * 10000) / 10000 ) / 1000);     // Fernpunkt in m gerundet
  
-         Wert4 = Wert3 - Wert2;   // Wert 4                              // Schärfentiefe in mm
-                 ST = (Math.round((Wert4 * 10000) / 10000 ) / 1000);     // Schärfentiefe in m gerundet
+         Wert4 = Wert3 - Wert2;   // Wert 4                              // Schï¿½rfentiefe in mm
+                 ST = (Math.round((Wert4 * 10000) / 10000 ) / 1000);     // Schï¿½rfentiefe in m gerundet
  
          BD = D1 * 1500;                                                 // Bilddiagonale aus Z-Kreis berechnen
          bw = 2 * Math.atan(BD / (2 * A1)) * 180 /3.14159;               // Bildwinkel aus der Bilddiagonale und Brennweite
@@ -29,23 +29,23 @@
         form.ow.value = C1;                                              // Die eingegebene Objektweite in die Grafik schreiben
         form.bildwinkel.value = Bildwinkel;                              // Den berechneten Bildwinkel in die Grafik schreiben
  
-        if (Wert1 < C1*1000-A1)         // HD <= Objektweite - Brennweite dann ist Fernpunkt und Schärfentiefe Unendlich
+        if (Wert1 < C1*1000-A1)         // HD <= Objektweite - Brennweite dann ist Fernpunkt und Schï¿½rfentiefe Unendlich
            {
              form.x.value = NP;                 //Nahpunkt in die Grafik schreiben
              form.y.value = "Unendlich";        //Fernpunkt ist unendlich in die Grafik schreiben
-             form.z.value = "Unendlich";        //Schärfentiefe ist unendlich in die Grafik schreiben
+             form.z.value = "Unendlich";        //Schï¿½rfentiefe ist unendlich in die Grafik schreiben
              form.loesungen.value =  HD;        //Hyperfokals Distanz in die Grafik schreiben
            }
          else                           // HD > Objektweite - Brennweite berechnete Werte in die Grafik schreiben
            {
              form.x.value = NP;                 //Nahpunkt in die Grafik schreiben
              form.y.value = FP;                 //Fernpunkt in die Grafik schreiben
-             form.z.value = ST;                 //Schärfentiefe in die Grafik schreiben
+             form.z.value = ST;                 //Schï¿½rfentiefe in die Grafik schreiben
              form.loesungen.value =  HD;        //Hyperfokals Distanz in die Grafik schreiben
            }
         }
   //  --></SCRIPT>
- <!-- Textstyle für die Ausgabefelder in der Gafik -->
+ <!-- Textstyle fï¿½r die Ausgabefelder in der Gafik -->
 <style type="text/css"> 
  
 <!--
@@ -90,14 +90,14 @@ padding: 5px;
 </script>
 </HEAD>
  
-<BODY  background="hg.png" style="background-repeat:no-repeat">     <!-- Hintergrundgrafik einmal einfügen -->
+<BODY  background="hg.png" style="background-repeat:no-repeat">     <!-- Hintergrundgrafik einmal einfï¿½gen -->
  
  
 <h1>Sch&auml;rfentieferechner</h1>
 (F&uuml;r Kommas Dezimalpunkt eingeben) <a href="dofhilfe.html" onclick="window.open(this.href, 'Hilfe'); return false">Hilfe gibts hier</a>
 <br>
  
-<FORM ACTION="" METHOD=POST >   <!--  Eingabeformular ausgeben und nach Veränderung eines Wertes neu berechnen -->
+<FORM ACTION="" METHOD=POST >   <!--  Eingabeformular ausgeben und nach Verï¿½nderung eines Wertes neu berechnen -->
 <div style="position:absolute; top:115px; left:5px">
 <a title="Die Brennweite bitte in mm und ohne den
 Cropfaktor des Sensors angeben. Dieser
@@ -112,7 +112,7 @@ Milimeter
 </div>  </a>                       <!--  Ajaxtooltip endet hier -->
  
 <div style="position:absolute; top:145px; left:5px">
-<a  title="Die Blende beeinflusst massgeblich die Sch&auml;rfentiefe.  ">Blende:          <!--  Ajaxtooltip einfügen  -->
+<a  title="Die Blende beeinflusst massgeblich die Sch&auml;rfentiefe.  ">Blende:          <!--  Ajaxtooltip einfï¿½gen  -->
 </div>
 <div style="position:absolute; top:145px; left:100px">
 <select name="Blende" onchange="berechne(this.form);" >
@@ -154,7 +154,7 @@ Milimeter
 </div>   </a>
  
 <div style="position:absolute; top:175px; left:5px">
-<a title="Die Objektweite ist der Abtand vom Sensor der Kamera bis zu dem Punk auf den Scharfgestellt wird.">Objektweite:</a>     <!--  Ajaxtooltip einfügen -->
+<a title="Die Objektweite ist der Abtand vom Sensor der Kamera bis zu dem Punk auf den Scharfgestellt wird.">Objektweite:</a>     <!--  Ajaxtooltip einfï¿½gen -->
 </div>
 <div style="position:absolute; top:175px; left:100px">
 <INPUT TYPE=text NAME=C1 VALUE="2.5" SIZE=3 onchange="berechne(this.form);">
@@ -165,7 +165,7 @@ Meter
 </div>
  
 <div style="position:absolute; top:205px; left:5px">
-<a  title="In der Liste der Kameras sind die wichtigstan Sensorgr&ouml;ssen bereits angegeben und intern verrechnet. ">Kamera:</a>    <!--  Ajaxtooltip einfügen -->
+<a  title="In der Liste der Kameras sind die wichtigstan Sensorgr&ouml;ssen bereits angegeben und intern verrechnet. ">Kamera:</a>    <!--  Ajaxtooltip einfï¿½gen -->
 </div>
 <div style="position:absolute; top:205px; left:100px">
 <select name="Kamera" onchange="berechne(this.form);">
@@ -193,14 +193,14 @@ Meter
 </div>
  
 <div style="position:absolute; top:205px; left:500px">
-Tabelle mit  <a href="http://volkerbehrens.de/fotografie/nachschlagen/sensorgroesse.htm" onclick="window.open(this.href, 'Sensorgr&ouml;&szlig;en'); return false">Sensorgr&ouml;&szlig;en</a>
+Tabelle mit  <a href="http://192.168.168.172/volkerbehrens/fotografie//sensorgroesse.htm" onclick="window.open(this.href, 'Sensorgr&ouml;&szlig;en'); return false">Sensorgr&ouml;&szlig;en</a>
 </div>
  
 <!--Buton zum ausrechnen-->
 <div style="position:absolute; top:280px; left:20px">
 <INPUT TYPE=button NAME=rechnen VALUE="ausrechnen" onclick="berechne(form);">
 </div>
-<!--Ausgabefeld für Hyperfokale Entfernung in der Grafik-->
+<!--Ausgabefeld fï¿½r Hyperfokale Entfernung in der Grafik-->
 <div style="position:absolute; top:280px; left:150px">
 <a
 title="Als hyperfokale Entfernung wird in der Fotografie der Objektabstand bezeichnet, bei dem, wenn man genau auf dieses Objekt fokussiert, im Unendlichen liegende Objekte auch noch scharf abgebildet werden. Der gesamte scharfe Bereich, die sogenannte Sch&auml;rfentiefe, reicht dann von der halben hyperfokalen Entfernung bis ins Unendliche"
@@ -209,36 +209,36 @@ onclick="window.open(this.href, 'HE'); return false">Hyperfokale Entfernung </a>
 = <INPUT TYPE=text class="textStyle" NAME=loesungen VALUE="" SIZE=4 onfocus="this.blur();"> m
 </div>
  
-<!--Ausgabefeld für Bildwinkel in der Grafik-->
+<!--Ausgabefeld fï¿½r Bildwinkel in der Grafik-->
 <div style="position:absolute; top:115px; left:350px">
-<a href="http://de.wikipedia.org/wiki/Bildwinkel" onclick="window.open(this.href, 'Bildwinkel'); return false">Bildwinkel (Sensorabhängig)       </a>
+<a href="http://de.wikipedia.org/wiki/Bildwinkel" onclick="window.open(this.href, 'Bildwinkel'); return false">Bildwinkel (Sensorabhï¿½ngig)       </a>
  = <INPUT TYPE=text class="textStyle" NAME=bildwinkel VALUE="" SIZE=2 onfocus="this.blur();"> Grad
 </div>
-<!--Ausgabefeld für den Fernpunkt in der Grafik-->
+<!--Ausgabefeld fï¿½r den Fernpunkt in der Grafik-->
 <div style="position:absolute; top:350px; left:5px">
 Fernpunkt<br>
 <INPUT TYPE=text class="textStyle" NAME=y VALUE="" SIZE=7 onfocus="this.blur();"> m
 </div>
-<!--Ausgabefeld für den Nahpunkt in der Grafik-->
+<!--Ausgabefeld fï¿½r den Nahpunkt in der Grafik-->
 <div style="position:absolute; top:350px; left:130px">
 Nahpunkt<br>
 <INPUT TYPE=text class="textStyle" NAME=x VALUE="" SIZE=8 onfocus="this.blur();"> m
 </div>
-<!--Ausgabefeld für die Blende in der Grafik-->
+<!--Ausgabefeld fï¿½r die Blende in der Grafik-->
 <div style="position:absolute; top:320px; left:450px">
 Blende<br>
 <INPUT TYPE=text class="textStyle" NAME=bl VALUE="" SIZE=1 onfocus="this.blur();">
 </div>
-<!--Ausgabefeld für den Z-Kreis in der Grafik-->
+<!--Ausgabefeld fï¿½r den Z-Kreis in der Grafik-->
 <div style="position:absolute; top:400px; left:700px">
 Z-Kreis<br>
 <INPUT TYPE=text class="textStyle" NAME=zk VALUE="" SIZE=5 onfocus="this.blur();"> mm
 </div>
-<!--Ausgabefeld für die Objektentfernung in der Grafik-->
+<!--Ausgabefeld fï¿½r die Objektentfernung in der Grafik-->
 <div style="position:absolute; top:451px; left:326px">
 Objektweite : <INPUT TYPE=text class="textStyle" NAME=ow VALUE="" SIZE=3 onfocus="this.blur();"> m
 </div>
-<!--Ausgabefeld für die Schärfentiefe in der Grafik-->
+<!--Ausgabefeld fï¿½r die Schï¿½rfentiefe in der Grafik-->
 <div style="position:absolute; top:480px; left:47px">
 <INPUT TYPE=text class="textStyle" NAME=z VALUE="" SIZE=13 onfocus="this.blur();"> m <br>
 Sch&auml;rfentiefe
