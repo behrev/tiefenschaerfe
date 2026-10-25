@@ -35,6 +35,4 @@ Das Skript nutzt folgende Kernberechnungen:
 ## 📄 Lizenz
 *Jeder kann den Programmcode nutzen. Es gibt keine Einschränkung.*
 
----
-*Entwickelt von [V. Behrens](http://volkerbehrens.de/fblog)*
 
