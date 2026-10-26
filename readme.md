@@ -4,9 +4,9 @@ Ein webbasiertes Tool zur Berechnung der Schärfentiefe und anderer optischer Pa
 
 ## 📋 Funktionen
 
-*   **Berechnung der Schärfentiefe:** Bestimme den Bereich, in dem Objekte scharf abgebildet werden.
-*   **Nahpunkt & Fernpunkt:** Erfahre die Grenzen der Schärfe für eine bestimmte Objektweite.
-*   **Hyperfokale Distanz:** Berechne den Fokuspunkt, um Schärfe bis ins Unendliche zu erreichen.
+*   **Berechnung der Schärfentiefe:** Bestimmt den Bereich, in dem Objekte scharf abgebildet werden.
+*   **Nahpunkt & Fernpunkt:** Der vordere und der hintere Punkt der Schärfe für die angegebene Objektentfernung.
+*   **Hyperfokale Distanz:** Berechnet den Fokuspunkt, um Schärfe bis ins Unendliche zu erreichen.
 *   **Bildwinkel:** Berechnung des Sichtfelds basierend auf der Brennweite und der gewählten Sensorgröße.
 *   **Z-Kreis:** Anzeige des berechneten Z-Kreises.
 
@@ -31,6 +31,7 @@ Das Skript nutzt folgende Kernberechnungen:
 - **Hyperfokale Distanz ($H$):** $\frac{f^2}{B \cdot d} + f$
 - **Bildwinkel:** Berechnet aus der Bilddiagonale und der Brennweite.
 - **Schärfentiefe:** Differenz zwischen Fernpunkt und Nahpunkt.
+- **Link zum** [Wikipediaartikel](https://de.wikipedia.org/wiki/Sch%C3%A4rfentiefe).
 
 ## 📄 Lizenz
 *Jeder kann den Programmcode nutzen. Es gibt keine Einschränkung.*
